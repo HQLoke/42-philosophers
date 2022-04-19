@@ -15,17 +15,27 @@ long long	ft_get_time(void)
 	return (1);
 }
 
-void *do_something(void *args)
+void	grab_forks(void)
 {
 	pthread_mutex_lock(&lock[0]);
 
 	pthread_mutex_unlock(&lock[0]);
+}
+
+void *do_something(void *args)
+{
+	
 	return (NULL);
 }
 
 int	main(int argc, char **argv)
 {
 	pthread_t tid[2];
+
+	// if (argc != 5 && argc != 6)
+	// {
+	// 	return (EXIT_FAILURE);
+	// }
 	
 	for (int i = 0; i < 10; i += 1)
 		pthread_mutex_init(&lock[i], NULL);
