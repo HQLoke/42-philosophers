@@ -1,20 +1,25 @@
 #include "philo.h"
 
-pthread_mutex_t lock;
+pthread_mutex_t lock[10];
 int	counter;
+
+long long	ft_get_time(void)
+{
+	struct timeval	current_time;
+
+	if (gettimeofday(&current_time, NULL) == -1)
+	{
+		printf("ft_get_time error: gettimeofday\n");
+		return (-1);
+	}
+	return (1);
+}
 
 void *do_something(void *args)
 {
-	pthread_mutex_lock(&lock);
-	printf("Job %i is starting\n", counter);
+	pthread_mutex_lock(&lock[0]);
 
-	int i = 0;
-	while (i < 10000000)
-		i += 1;
-
-	counter += 1;
-	printf("Job %i is finishing\n", counter);
-	pthread_mutex_unlock(&lock);
+	pthread_mutex_unlock(&lock[0]);
 	return (NULL);
 }
 
@@ -22,22 +27,15 @@ int	main(int argc, char **argv)
 {
 	pthread_t tid[2];
 	
-	pthread_mutex_init(&lock, NULL);
+	for (int i = 0; i < 10; i += 1)
+		pthread_mutex_init(&lock[i], NULL);
 
-	int i = 0;
-	while (i < 2)
-	{
+	for (int i = 0; i < 2; i += 1)
 		pthread_create(&tid[i], NULL, &do_something, NULL);
-		i += 1;
-	}
 
-	i = 0;
-	while (i < 2)
-	{
+	for (int i = 0; i < 2; i += 1)
 		pthread_join(tid[i], NULL);
-		i += 1;
-	}
 
-
+	printf("Counter is %i\n", counter);
 	return (0);
 }
