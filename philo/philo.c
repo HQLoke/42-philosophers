@@ -6,11 +6,14 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:19:50 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/20 14:57:36 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/21 16:41:34 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+pthread_mutex_t fun;
+int counter;
 
 //* returns current time in milliseconds
 //* also check if gettimeofday returns -1
@@ -35,24 +38,30 @@ void	sleep_in_ms(int millisec)
 		printf("error: sleep_in_ms: usleep\n");
 }
 
-void	grab_forks(void)
+void	grab_fork(t_info *info, int philo_id)
 {
-	pthread_mutex_lock();
-	printf("%li\n", get_time_in_ms());
-	sleep_in_ms(200);
-
-	pthread_mutex_unlock();
+	pthread_mutex_lock(&info->fork[philo_id]);
+	
+	pthread_mutex_unlock(&info->fork[philo_id]);
 }
 
-// void	print_log(char *msg)
-// {
-// 	pthread_mutex_lock(&msg);
-
-// 	pthread_mutex_unlock(&msg);
-// }
-
-void *do_something(void *args)
+static void	*activity(t_philo *self)
 {
-	grab_forks();
 	return (NULL);
 }
+
+// void	thread_handler(int num_of_philos, t_philo *philo)
+// {
+// 	int			i;
+// 	pthread_t	tid[num_of_philos];
+
+// 	i = 0;
+// 	while (i < num_of_philos)
+// 	{
+// 		pthread_create(&tid[i], NULL, &activity, &philo[i]);
+// 		i += 1;
+// 	}
+// 	i = 0;
+// 	while (i < num_of_philos)
+// 		pthread_join(tid[i++], NULL);
+// }

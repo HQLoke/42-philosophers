@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
+/*   Updated: 2022/04/21 15:12:11 by hloke            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -10,6 +22,15 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+enum e_action
+{
+	TAKE_FORK,
+	EATING,
+	THINKING,
+	SLEEPING,
+	DIED
+};
 
 //* list of all common variables shared by all philosophers
 typedef struct s_info
@@ -33,6 +54,11 @@ typedef struct s_philo
 	int				times_eaten;
 	struct s_info	*info;
 }	t_philo;
+
+//* actions.c
+
+//* philo.c
+void	thread_handler(int num_of_philos, t_philo *philo);
 
 //* ft_utils.c
 int		ft_atoi(const char *str);
