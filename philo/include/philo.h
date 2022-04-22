@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/21 15:12:11 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/22 16:52:34 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,36 @@ enum e_action
 	DIED
 };
 
-//* list of all common variables shared by all philosophers
-typedef struct s_info
-{
-	int				num_of_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				must_eat_count;
-	bool			all_alive;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	log;
-}	t_info;
-
 //* list of all variables specific to each philosopher
 typedef struct s_philo
 {
-	int				philo_id;
-	int				fork_left;
-	int				fork_right;
-	int				times_eaten;
-	struct s_info	*info;
+	int				id;
+	int				left_fork_id;
+	int				right_fork_id;
+	int				nb_has_eaten;
+	pthread_t		thread_id;
+	struct s_rules	*rules;
 }	t_philo;
 
-//* actions.c
+//* list of all common variables shared by all philosophers
+//* nb = number
+typedef struct s_rules
+{
+	int				nb_philos;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				nb_eat;
+	bool			all_alive;
+	pthread_mutex_t	message;
+	pthread_mutex_t	fork[1000];
+	t_philo			philo[1000];
+}	t_rules;
 
-//* philo.c
-void	thread_handler(int num_of_philos, t_philo *philo);
+//* init.c
+int		init_all(char **argv, t_rules *r);
 
 //* ft_utils.c
 int		ft_atoi(const char *str);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t count, size_t size);
 
 #endif

@@ -8,7 +8,7 @@ RM = rm -f
 INCLUDE = -Iinclude -pthread
 
 MAIN = main.c
-SRCS = ft_utils.c philo.c
+SRCS = init.c utils.c
 OBJS = ${SRCS:.c=.o}
 
 all: ${NAME}
