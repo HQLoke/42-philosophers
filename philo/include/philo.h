@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/22 16:52:34 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/23 10:10:34 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 	int				right_fork_id;
 	int				nb_has_eaten;
 	pthread_t		thread_id;
+	long long		time_last_eat;
 	struct s_rules	*rules;
 }	t_philo;
 
@@ -58,10 +59,21 @@ typedef struct s_rules
 	t_philo			philo[1000];
 }	t_rules;
 
+//* actions.c
+void	print_log(t_rules *r, int philo_id, int action);
+
+//* error_handler.c
+int		error_handler(int error_code);
+int		write_error(char *str);
+
 //* init.c
 int		init_all(char **argv, t_rules *r);
 
-//* ft_utils.c
+//* launcher.c
+int		launcher(t_rules *r);
+
+//* utils.c
 int		ft_atoi(const char *str);
+long	get_time_in_ms(void);
 
 #endif

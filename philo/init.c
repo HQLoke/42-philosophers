@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:13:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/22 14:25:36 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/23 17:08:08 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	init_philos(t_rules *r)
 	while (--num >= 0)
 	{
 		r->philo[num].id = num;
-		r->philo[num].left_fork_id = (num + 1) % r->nb_philos;
-		r->philo[num].right_fork_id = num;
+		r->philo[num].left_fork_id = num;
+		r->philo[num].right_fork_id = (num + 1) % r->nb_philos;
 		r->philo[num].nb_has_eaten = 0;
 		r->philo[num].rules = r;
 	}
@@ -59,6 +59,7 @@ int	init_all(char **argv, t_rules *r)
 	}
 	else
 		r->nb_eat = 2147483647;
+	r->all_alive = true;
 	init_philos(r);
 	return (init_mutex(r));
 }

@@ -8,22 +8,22 @@ RM = rm -f
 INCLUDE = -Iinclude -pthread
 
 MAIN = main.c
-SRCS = init.c utils.c
+SRCS = actions.c error_handler.c init.c launcher.c utils.c
 OBJS = ${SRCS:.c=.o}
 
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${MAIN} ${OBJS}
+	@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${MAIN} ${OBJS}
 
 %.o: %.c
-	${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
+	@${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
 
 clean:
-	${RM} ${OBJS}
+	@${RM} ${OBJS}
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re: fclean all
 
