@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:57:49 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/23 14:50:05 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/24 18:21:15 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ long	get_time_in_ms(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	print_action(t_philo *philo, int action)
+{
+	pthread_mutex_lock(&philo->rules->message);
+	if (action == TAKE_FORK)
+		printf("%li %3i has taken a fork.\n", get_time_in_ms(), philo->id);
+	else if (action == EATING)
+		printf("%li %3i is eating.\n", get_time_in_ms(), philo->id);
+	else if (action == THINKING)
+		printf("%li %3i is thinking.\n", get_time_in_ms(), philo->id);
+	else if (action == SLEEPING)
+		printf("%li %3i is sleeping.\n", get_time_in_ms(), philo->id);
+	else if (action == DIED)
+		printf("%li %3i has died.\n", get_time_in_ms(), philo->id);
+	pthread_mutex_unlock(&philo->rules->message);
 }
 
 void	smart_sleep(void)

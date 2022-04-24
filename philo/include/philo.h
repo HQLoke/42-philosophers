@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/23 10:10:34 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/24 22:25:00 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ typedef struct s_rules
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
-	bool			all_alive;
+	bool			death;
+	bool			all_eaten;
 	pthread_mutex_t	message;
 	pthread_mutex_t	fork[1000];
 	t_philo			philo[1000];
 }	t_rules;
 
 //* actions.c
-void	print_log(t_rules *r, int philo_id, int action);
+void	print_action(t_philo *p, int action);
 
 //* error_handler.c
 int		error_handler(int error_code);

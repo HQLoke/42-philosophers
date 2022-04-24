@@ -6,13 +6,16 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:19:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/23 17:26:12 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/24 22:25:44 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int counter;
+static int	death_check(t_rules *r)
+{
+	
+}
 
 static int	exit_handler(t_rules *r)
 {
@@ -22,11 +25,14 @@ static int	exit_handler(t_rules *r)
 	i = 0;
 	philo = r->philo;
 	while (i < r->nb_philos)
-	{
-		if (pthread_join(philo[i].thread_id, NULL) != 0)
-			return (1);
-		i += 1;
-	}
+		if (pthread_join(philo[i++].thread_id, NULL) != 0)
+			return (4);
+	i = 0;
+	while (i < r->nb_philos)
+		if (pthread_mutex_destroy(&r->fork[i++]) != 0)
+			return (5);
+	if (pthread_mutex_destroy(&r->message) != 0)
+		return (5);
 	return (0);
 }
 
@@ -37,7 +43,7 @@ static void	*activity(void *philosopher)
 
 	philo = (t_philo *)philosopher;
 	rules = philo->rules;
-	while (rules->all_alive == 1)
+	while (rules->all_eaten != true)
 	{
 		if (philo->id % 2 == 1)
 		{
@@ -71,8 +77,9 @@ int	launcher(t_rules *r)
 	philo = r->philo;
 	while (i < r->nb_philos)
 	{
-		if (pthread_create(&philo[i].thread_id, NULL, &activity, (void *)&philo[i]) != 0)
-			return (1);
+		if (pthread_create(&philo[i].thread_id, NULL, &activity,
+			(void *)&philo[i]) != 0)
+			return (3);
 		i += 1;
 	}
 	
