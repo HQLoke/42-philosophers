@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:13:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/23 17:08:08 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/25 14:38:22 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	init_mutex(t_rules *r)
 
 	num = r->nb_philos;
 	if (pthread_mutex_init(&r->message, NULL) != 0)
+		return (2);
+	if (pthread_mutex_init(&r->status, NULL) != 0)
 		return (2);
 	while (--num >= 0)
 	{
@@ -48,7 +50,7 @@ int	init_all(char **argv, t_rules *r)
 	r->time_die = ft_atoi(argv[2]);
 	r->time_eat = ft_atoi(argv[3]);
 	r->time_sleep = ft_atoi(argv[4]);
-	if (r->nb_philos < 2 || r->nb_philos > 1000 || r->time_die < 0
+	if (r->nb_philos < 1 || r->nb_philos > 200 || r->time_die < 0
 		|| r->time_eat < 0 || r->time_sleep < 0)
 		return (1);
 	if (argv[5] != NULL)
@@ -59,7 +61,8 @@ int	init_all(char **argv, t_rules *r)
 	}
 	else
 		r->nb_eat = 2147483647;
-	r->all_alive = true;
+	r->death = false;
+	r->all_eaten = false;
 	init_philos(r);
 	return (init_mutex(r));
 }

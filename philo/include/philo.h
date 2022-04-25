@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/24 22:25:00 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/25 20:11:19 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+# define RED	"\e[0;31m"
+# define GRN	"\e[0;32m"
+# define YEL	"\e[0;33m"
+# define BLU	"\e[0;34m"
+# define MAG	"\e[0;35m"
+# define RESET	"\e[0m"
+
 enum e_action
 {
-	TAKE_FORK,
+	GRAB_FORK,
 	EATING,
 	THINKING,
 	SLEEPING,
@@ -56,12 +63,10 @@ typedef struct s_rules
 	bool			death;
 	bool			all_eaten;
 	pthread_mutex_t	message;
-	pthread_mutex_t	fork[1000];
-	t_philo			philo[1000];
+	pthread_mutex_t	status;
+	pthread_mutex_t	fork[200];
+	t_philo			philo[200];
 }	t_rules;
-
-//* actions.c
-void	print_action(t_philo *p, int action);
 
 //* error_handler.c
 int		error_handler(int error_code);
@@ -75,6 +80,8 @@ int		launcher(t_rules *r);
 
 //* utils.c
 int		ft_atoi(const char *str);
-long	get_time_in_ms(void);
+void	print_message(t_philo *p, int action);
+void	smart_sleep(int time);
+long	timestamp_ms(void);
 
 #endif

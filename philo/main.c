@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:57:19 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/23 10:18:31 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/25 20:09:42 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int argc, char **argv)
 	ret = init_all(argv, &rules);
 	if (ret != 0)
 		return (error_handler(ret));
-	launcher(&rules);
+
 	
+	launcher(&rules);
+
 	return (0);
 }

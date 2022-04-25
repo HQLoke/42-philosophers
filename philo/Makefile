@@ -8,7 +8,7 @@ RM = rm -f
 INCLUDE = -Iinclude -pthread
 
 MAIN = main.c
-SRCS = actions.c error_handler.c init.c launcher.c utils.c
+SRCS = error_handler.c init.c launcher.c utils.c
 OBJS = ${SRCS:.c=.o}
 
 all: ${NAME}

@@ -6,16 +6,11 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:19:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/24 22:25:44 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/25 20:10:14 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static int	death_check(t_rules *r)
-{
-	
-}
 
 static int	exit_handler(t_rules *r)
 {
@@ -36,35 +31,20 @@ static int	exit_handler(t_rules *r)
 	return (0);
 }
 
+//* check if everyone has finished eating, or if someone has died
+static int	status_checker(t_rules *r)
+{
+	
+}
+
+static void	grab_forks_and_eat(t_rules *r, t_philo *philo)
+{
+	
+}
+
 static void	*activity(void *philosopher)
 {
-	t_philo *philo;
-	t_rules	*rules;
-
-	philo = (t_philo *)philosopher;
-	rules = philo->rules;
-	while (rules->all_eaten != true)
-	{
-		if (philo->id % 2 == 1)
-		{
-			pthread_mutex_lock(&rules->fork[philo->left_fork_id]);
-			printf("%li %i has taken a fork\n", get_time_in_ms(), philo->id);
-			pthread_mutex_lock(&rules->fork[philo->right_fork_id]);
-			printf("%li %i has taken a fork\n", get_time_in_ms(), philo->id);
-			pthread_mutex_unlock(&rules->fork[philo->left_fork_id]);
-			pthread_mutex_unlock(&rules->fork[philo->right_fork_id]);
-		}
-		else
-		{
-			pthread_mutex_lock(&rules->fork[philo->right_fork_id]);
-			printf("%li %i has taken a fork\n", get_time_in_ms(), philo->id);
-			pthread_mutex_lock(&rules->fork[philo->left_fork_id]);
-			printf("%li %i has taken a fork\n", get_time_in_ms(), philo->id);
-			pthread_mutex_unlock(&rules->fork[philo->right_fork_id]);
-			pthread_mutex_unlock(&rules->fork[philo->left_fork_id]);
-		}
-		
-	}
+	
 	return (NULL);
 }
 
@@ -82,6 +62,6 @@ int	launcher(t_rules *r)
 			return (3);
 		i += 1;
 	}
-	
+	status_checker(r);
 	return (exit_handler(r));
 }
