@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:19:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/25 20:10:14 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/25 21:52:29 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ static int	exit_handler(t_rules *r)
 	return (0);
 }
 
-//* check if everyone has finished eating, or if someone has died
-static int	status_checker(t_rules *r)
-{
-	
-}
-
-static void	grab_forks_and_eat(t_rules *r, t_philo *philo)
-{
-	
-}
-
 static void	*activity(void *philosopher)
 {
 	
@@ -62,6 +51,5 @@ int	launcher(t_rules *r)
 			return (3);
 		i += 1;
 	}
-	status_checker(r);
 	return (exit_handler(r));
 }

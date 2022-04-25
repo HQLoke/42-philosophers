@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/25 20:11:19 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/25 22:00:44 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_philo
 	int				left_fork_id;
 	int				right_fork_id;
 	int				nb_has_eaten;
-	pthread_t		thread_id;
 	long long		time_last_eat;
+	pthread_t		thread_id;
 	struct s_rules	*rules;
 }	t_philo;
 
@@ -63,7 +63,6 @@ typedef struct s_rules
 	bool			death;
 	bool			all_eaten;
 	pthread_mutex_t	message;
-	pthread_mutex_t	status;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
 }	t_rules;
