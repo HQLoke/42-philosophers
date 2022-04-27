@@ -1,0 +1,26 @@
+The biggest problem with philosophers is that calling thread will hang when using mutex
+or semaphore.
+
+So instead of calling it immediately, implement a queueing algorithm to see if its their
+turn to take the fork.
+
+1: Given N number of philosophers, the max number of threads/processes running is N / 2.
+2: Create an int array of size N / 2, then fill the array with even numbers starting with
+   0, then increment by 2, repeated N / 2 times.
+3: Before attempting to pick up forks, each philo will check the array to see if its their
+   turn.
+
+   If yes, proceed to eating. Then increment all numbers in the array by one.
+   If not, go through one cycle of time of death to see if it dies while waiting to eat.
+   Then, increment all numbers in the array by one.
+   If number equals to number of philos minus one, then return it back to zero.
+
+Example:
+Number of philos = 5
+Array size = 2
+
+0     0   0     0   0     0   0     0   0
+  1     1   1     1   1     1   1     1   1
+2   2     2   2     2   2     2   2     2   2
+  3   3     3   3     3   3     3   3     3
+    4   4     4   4     4   4     4   4     4

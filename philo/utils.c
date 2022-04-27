@@ -6,20 +6,11 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:57:49 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/25 20:11:13 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/27 15:35:03 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-//* returns current time in milliseconds
-long	timestamp_ms(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -50,24 +41,43 @@ int	ft_atoi(const char *str)
 	return ((int)sum);
 }
 
-void	print_message(t_philo *philo, int action)
+void	print_action(t_rules *r, int philo_id, int action)
 {
-	
+	pthread_mutex_lock(&r->message);
+	if (action == GRAB_FORK)
+		printf(GRN "%li %i has taken a fork", timestamp_ms(), philo_id + 1);
+	else if (action == EATING)
+		printf(MAG "%li %i is eating", timestamp_ms(), philo_id + 1);
+	else if (action == THINKING)
+		printf(CYN "%li %i is thinking", timestamp_ms(), philo_id + 1);
+	else if (action == SLEEPING)
+		printf(YEL "%li %i is sleeping", timestamp_ms(), philo_id + 1);
+	else if (action == DIED)
+		printf(RED "%li %i has died", timestamp_ms(), philo_id + 1);
+	printf("\n" RESET);
+	pthread_mutex_unlock(&r->message);
 }
 
 //* usleep is not accurate, this function splits into parts by using usleep(200)
 //* argument time is in milliseconds, requires conversion into microseconds
-void	smart_sleep(int time)
+void	smart_sleep(int time_in_ms)
 {
-	struct timeval	begin;
-	long			begin_t;
+	long	begin_t;
 
-	gettimeofday(&begin, NULL);
-	begin_t = begin.tv_sec * 1000 + begin.tv_usec / 1000;
+	begin_t = timestamp_ms();
 	while (true)
 	{
-		if ((timestamp_ms() - begin_t) >= (long)time)
+		if ((timestamp_ms() - begin_t) >= (long)time_in_ms)
 			break ;
 		usleep (200);
 	}
+}
+
+//* returns current time in milliseconds
+long	timestamp_ms(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

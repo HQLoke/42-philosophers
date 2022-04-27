@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/25 22:00:44 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/27 17:34:37 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define YEL	"\e[0;33m"
 # define BLU	"\e[0;34m"
 # define MAG	"\e[0;35m"
+# define CYN	"\e[0;36m"
 # define RESET	"\e[0m"
 
 enum e_action
@@ -45,8 +46,8 @@ typedef struct s_philo
 	int				id;
 	int				left_fork_id;
 	int				right_fork_id;
-	int				nb_has_eaten;
-	long long		time_last_eat;
+	int				eat_count;
+	long			time_last_eat;
 	pthread_t		thread_id;
 	struct s_rules	*rules;
 }	t_philo;
@@ -60,8 +61,7 @@ typedef struct s_rules
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
-	bool			death;
-	bool			all_eaten;
+	pthread_mutex_t	death;
 	pthread_mutex_t	message;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
@@ -79,8 +79,8 @@ int		launcher(t_rules *r);
 
 //* utils.c
 int		ft_atoi(const char *str);
-void	print_message(t_philo *p, int action);
-void	smart_sleep(int time);
+void	print_action(t_rules *r, int philo_id, int action);
+void	smart_sleep(int time_in_ms);
 long	timestamp_ms(void);
 
 #endif
