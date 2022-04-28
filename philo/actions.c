@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:11:47 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 13:30:16 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 16:33:27 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	philo_eats(t_rules *r, t_philo *self)
 	print_action(r, self->id, GRAB_FORK);
 	pthread_mutex_lock(&r->fork[self->right_fork_id]);
 	print_action(r, self->id, GRAB_FORK);
-	self->timer = self->rules->time_die;
+	self->timer = r->time_die;
 	print_action(r, self->id, EATING);
 	if (self->timer - r->time_eat < 0)
 	{

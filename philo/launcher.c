@@ -6,11 +6,21 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:19:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 13:36:31 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 16:22:04 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	check_death(t_rules *r)
+{
+	int	temp;
+
+	pthread_mutex_lock(&r->message);
+	temp = r->death;
+	pthread_mutex_unlock(&r->message);
+	return (temp);
+}
 
 static void	*activity(void *philosopher)
 {
@@ -20,7 +30,7 @@ static void	*activity(void *philosopher)
 	self = (t_philo *)philosopher;
 	r = self->rules;
 	self->timer = r->time_die;
-	while (self->eat_count < r->nb_eat)
+	while ((self->eat_count < r->nb_eat) && check_death(r) == 0)
 	{
 		if (philo_thinks(r, self) != 0)
 			return ((void *) 42);

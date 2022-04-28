@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:13:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 13:37:41 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 13:49:01 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	init_all(char **argv, t_rules *r)
 	if (r->nb_philos < 1 || r->nb_philos > 200 || r->time_die < 60
 		|| r->time_eat < 60 || r->time_sleep < 60 || r->nb_eat < 0)
 		return (1);
-	r->death = false;
+	r->death = 0;
 	init_philos(r);
 	return (init_mutex(r));
 }

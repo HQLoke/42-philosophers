@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 13:36:55 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 13:48:43 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_rules
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
-	bool			death;
+	int				death;
 	pthread_mutex_t	message;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
