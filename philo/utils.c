@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:57:49 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/27 15:35:03 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 13:38:07 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,23 @@ int	ft_atoi(const char *str)
 void	print_action(t_rules *r, int philo_id, int action)
 {
 	pthread_mutex_lock(&r->message);
-	if (action == GRAB_FORK)
-		printf(GRN "%li %i has taken a fork", timestamp_ms(), philo_id + 1);
-	else if (action == EATING)
-		printf(MAG "%li %i is eating", timestamp_ms(), philo_id + 1);
-	else if (action == THINKING)
-		printf(CYN "%li %i is thinking", timestamp_ms(), philo_id + 1);
-	else if (action == SLEEPING)
-		printf(YEL "%li %i is sleeping", timestamp_ms(), philo_id + 1);
-	else if (action == DIED)
-		printf(RED "%li %i has died", timestamp_ms(), philo_id + 1);
-	printf("\n" RESET);
+	if (r->death == false)
+	{
+		if (action == GRAB_FORK)
+			printf(GRN "%li %i has taken a fork", timestamp_ms(), philo_id + 1);
+		else if (action == EATING)
+			printf(MAG "%li %i is eating", timestamp_ms(), philo_id + 1);
+		else if (action == THINKING)
+			printf(CYN "%li %i is thinking", timestamp_ms(), philo_id + 1);
+		else if (action == SLEEPING)
+			printf(YEL "%li %i is sleeping", timestamp_ms(), philo_id + 1);
+		else if (action == DIED)
+		{
+			printf(RED "%li %i has died", timestamp_ms(), philo_id + 1);
+			r->death = true;
+		}
+		printf("\n" RESET);
+	}
 	pthread_mutex_unlock(&r->message);
 }
 

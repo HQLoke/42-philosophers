@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/27 17:34:37 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 13:36:55 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct s_philo
 	int				left_fork_id;
 	int				right_fork_id;
 	int				eat_count;
-	long			time_last_eat;
+	long			timer;
+	int				queue_map[100];
 	pthread_t		thread_id;
 	struct s_rules	*rules;
 }	t_philo;
@@ -61,11 +62,16 @@ typedef struct s_rules
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
-	pthread_mutex_t	death;
+	bool			death;
 	pthread_mutex_t	message;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
 }	t_rules;
+
+//* actions.c
+int		philo_eats(t_rules *r, t_philo *self);
+int		philo_sleeps(t_rules *r, t_philo *self);
+int		philo_thinks(t_rules *r, t_philo *self);
 
 //* error_handler.c
 int		error_handler(int error_code);
@@ -77,10 +83,16 @@ int		init_all(char **argv, t_rules *r);
 //* launcher.c
 int		launcher(t_rules *r);
 
+//* queueing.c
+void	queue_increment(int nb_philos, int queue_map[100]);
+void	queue_map_init(int nb_philos, t_philo *philo);
+bool	queue_turn(t_rules *r, t_philo *self);
+
 //* utils.c
 int		ft_atoi(const char *str);
 void	print_action(t_rules *r, int philo_id, int action);
 void	smart_sleep(int time_in_ms);
 long	timestamp_ms(void);
+int		time_diff(long new_time, long old_time);
 
 #endif
