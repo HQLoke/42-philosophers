@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:08:58 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 16:17:37 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 23:08:22 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	queue_turn(t_rules *r, t_philo *self)
 	i = 0;
 	while (i < (r->nb_philos / 2))
 	{
-		if (self->queue_map[i] == self->id)
+		if (self->id == self->queue_map[i])
 			return (true);
 		i += 1;
 	}

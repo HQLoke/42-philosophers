@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:19:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 18:24:27 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/28 23:32:56 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,9 @@ static void	*activity(void *philosopher)
 	r = self->rules;
 	self->timer = r->time_die;
 	while ((self->eat_count < r->nb_eat) && check_death(r) == 0)
-	{
-		printf("PHILO ID is %i >>>>>>", self->id);
-		for (int i = 0; i < r->nb_philos / 2; i += 1)
-			printf("%i ", self->queue_map[i]);
-		printf("\n");
-		
-			
+	{		
 		if (philo_thinks(r, self) != 0)
 			return ((void *) 42);
-
-		printf("PHILO ID is %i >>>>>>>", self->id);
-		for (int i = 0; i < r->nb_philos / 2; i += 1)
-			printf("%i ", self->queue_map[i]);
-		printf("\n");
-
-
 		if (philo_eats(r, self) != 0)
 			return ((void *) 42);
 		if (philo_sleeps(r, self) != 0)
@@ -82,6 +69,7 @@ int	launcher(t_rules *r)
 		if (pthread_create(&r->philo[i].thread_id, NULL, &activity,
 				(void *)&r->philo[i]) != 0)
 			return (3);
+		usleep(200);
 		i += 1;
 	}
 	return (exit_handler(r));
