@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:30:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 13:48:43 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/02 10:59:33 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	int				left_fork_id;
 	int				right_fork_id;
 	int				eat_count;
+	long			time_last_eat;
 	long			timer;
 	int				queue_map[100];
 	pthread_t		thread_id;

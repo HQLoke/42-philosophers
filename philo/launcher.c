@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:19:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 23:32:56 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/02 10:44:42 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	*activity(void *philosopher)
 
 	self = (t_philo *)philosopher;
 	r = self->rules;
+	self->time_last_eat = timestamp_ms();
 	self->timer = r->time_die;
 	while ((self->eat_count < r->nb_eat) && check_death(r) == 0)
 	{		
@@ -69,7 +70,6 @@ int	launcher(t_rules *r)
 		if (pthread_create(&r->philo[i].thread_id, NULL, &activity,
 				(void *)&r->philo[i]) != 0)
 			return (3);
-		usleep(200);
 		i += 1;
 	}
 	return (exit_handler(r));

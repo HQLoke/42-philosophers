@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:57:49 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/28 15:57:16 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/02 15:06:44 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,10 @@ long	timestamp_ms(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+//* returns the difference between past and future time
+int	time_diff(long new_time, long old_time)
+{
+	return (new_time - old_time);
 }
