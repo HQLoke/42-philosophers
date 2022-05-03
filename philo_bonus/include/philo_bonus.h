@@ -6,20 +6,23 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:41:18 by hloke             #+#    #+#             */
-/*   Updated: 2022/05/02 20:41:22 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/03 11:36:20 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
+# include <fcntl.h>
 # include <pthread.h>
+# include <semaphore.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/stat.h>
 # include <sys/time.h>
 # include <unistd.h>
 
@@ -50,7 +53,6 @@ typedef struct s_philo
 	long			time_last_eat;
 	long			timer;
 	int				queue_map[100];
-	pthread_t		thread_id;
 	struct s_rules	*rules;
 }	t_philo;
 
@@ -63,7 +65,6 @@ typedef struct s_rules
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
-	int				death;
 	pthread_mutex_t	message;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];

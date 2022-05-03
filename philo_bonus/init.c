@@ -6,13 +6,13 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:13:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/05/02 20:44:29 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/03 11:37:45 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static int	init_mutex(t_rules *r)
+static int	init_semaphore(t_rules *r)
 {
 	int	num;
 
@@ -56,7 +56,6 @@ int	init_all(char **argv, t_rules *r)
 	if (r->nb_philos < 1 || r->nb_philos > 200 || r->time_die < 60
 		|| r->time_eat < 60 || r->time_sleep < 60 || r->nb_eat < 0)
 		return (1);
-	r->death = 0;
 	init_philos(r);
-	return (init_mutex(r));
+	return (init_semaphore(r));
 }
