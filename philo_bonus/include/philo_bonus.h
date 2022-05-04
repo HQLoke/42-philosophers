@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:41:18 by hloke             #+#    #+#             */
-/*   Updated: 2022/05/03 11:36:20 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/04 16:03:51 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>
@@ -52,6 +53,7 @@ typedef struct s_philo
 	int				eat_count;
 	long			time_last_eat;
 	long			timer;
+	pid_t			process_id;
 	int				queue_map[100];
 	struct s_rules	*rules;
 }	t_philo;
@@ -65,8 +67,9 @@ typedef struct s_rules
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
-	pthread_mutex_t	message;
-	pthread_mutex_t	fork[200];
+	int				death;
+	sem_t			*message;
+	sem_t			*forks;
 	t_philo			philo[200];
 }	t_rules;
 

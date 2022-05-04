@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:13:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/05/03 11:37:45 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/04 15:54:14 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 static int	init_semaphore(t_rules *r)
 {
-	int	num;
-
-	num = r->nb_philos;
-	if (pthread_mutex_init(&r->message, NULL) != 0)
+	sem_unlink("/sem_message");
+	r->message = sem_open("/sem_message", O_CREAT, 0644, 1);
+	if (r->message == SEM_FAILED)
 		return (2);
-	while (--num >= 0)
-	{
-		if (pthread_mutex_init(&r->fork[num], NULL) != 0)
-			return (2);
-	}
+	sem_unlink("/sem_forks");
+	r->forks = sem_open("/sem_forks", O_CREAT, 0644, r->nb_philos);
+	if (r->forks == SEM_FAILED)
+		return (2);
 	return (0);
 }
 

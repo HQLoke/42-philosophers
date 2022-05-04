@@ -1,8 +1,7 @@
 NAME = philo_bonus
 
 CC = gcc
-CFLAGS =  -g3 -fsanitize=thread
-#-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 INCLUDE = -Iinclude -pthread

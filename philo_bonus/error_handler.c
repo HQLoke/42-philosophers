@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:49:00 by hloke             #+#    #+#             */
-/*   Updated: 2022/05/02 20:44:25 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/04 15:11:19 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ int	error_handler(int error_code)
 	if (error_code == 1)
 		return (write_error("at least 1 argument is invalid"));
 	else if (error_code == 2)
-		return (write_error("mutex initialization failed"));
+		return (write_error("sem open failed"));
 	else if (error_code == 3)
-		return (write_error("thread creation failed"));
+		return (write_error("fork failed"));
 	else if (error_code == 4)
-		return (write_error("thread joining failed"));
-	else if (error_code == 5)
-		return (write_error("mutex destroy failed"));
+		return (write_error("sem close failed"));
 	else
 		return (write_error("undefined error has occured"));
 }
