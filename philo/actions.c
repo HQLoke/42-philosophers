@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:11:47 by hloke             #+#    #+#             */
-/*   Updated: 2022/05/05 14:44:32 by hloke            ###   ########.fr       */
+/*   Updated: 2022/05/09 21:37:25 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	philo_sleeps(t_rules *r, t_philo *self)
 	}
 	smart_sleep(r->time_sleep);
 	self->timer -= r->time_sleep;
+	if (r->time_sleep < r->time_eat)
+		queue_increment(r->nb_philos, self->queue_map);
 	i = 0;
 	while (i < (r->time_sleep / r->time_eat))
 	{
